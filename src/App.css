@@ -1,0 +1,89 @@
+.App-header {
+  background-color: #0e191d;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.domineF{
+  font-family: 'Domine', serif;
+
+}
+.kaushanF{
+  font-family: 'Kaushan Script', cursive;
+}
+h5{
+  font-size: 2em;
+  color: #fffabd;
+  padding: 0;
+  margin: 0;
+  margin: 20px;
+}
+span{
+  color: white;
+}
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 5%;
+}
+.href{
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 1em;
+}
+button:hover{
+  cursor: pointer;
+}
+.container-search{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+.search-bar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 25px;
+  padding: 5px;
+}
+.search-bar input{
+  width: 60em;
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  outline: none;
+}
+.search-bar i{
+  font-size: 1.5em;
+  padding: 5px 10px;
+}
+.searchBtn{
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+/*Section of Champs*/
+.cardContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fffabd;
+  padding: 30px 0px;
+  animation: ease-in;
+}
+.cardContainer:hover{
+  width: 500px;
+}
+.allChampions{
+  padding: 50px 5%;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
+  display: flex;
+  flex-wrap: wrap;
+}
