@@ -7,7 +7,7 @@ function App() {
   const [summonerSearch, setSummonerSearch] = useState('')
   const [playerData, setPlayerData] = useState({})
   const [allChampions, setAllChampions] = useState([])
-  const API_KEY ='RGAPI-52cfa9b5-e09a-4cab-8581-506479f6633c'
+  const API_KEY ='RGAPI-3d3cbd77-bd1a-4644-94c7-8531f7143d5c'
   const APIAllChampions = 'http://ddragon.leagueoflegends.com/cdn/13.13.1/data/en_US/champion.json'
   
 
@@ -19,6 +19,7 @@ function App() {
     axios.get(APICallString)
       .then(res=>{
         setPlayerData(res.data)
+        //console.log(res.data)
       })  
       .catch(err=>{
         console.error(err)
@@ -28,8 +29,21 @@ function App() {
   function loadAllChampions(){
     axios.get(APIAllChampions)
     .then(res=>{
-      setAllChampions(res.data)
+      setAllChampions(res.data.data)
+
+      const championsData = res.data.data;
+      const championsArray = Object.keys(championsData).map(key => championsData[key]);
       
+      setAllChampions(championsArray.map(champion => (
+        <ChampionCard
+          fxname={champion.name}
+          key={champion.id}
+          bck={'url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/'+champion.name+'_0.jpg")'}
+          img={'http://ddragon.leagueoflegends.com/cdn/13.13.1/img/champion/'+champion.image.full}
+          championName={champion.name}
+          title={champion.title}
+        />
+      )))
 
       console.log(res.data.data)
     })
@@ -38,19 +52,18 @@ function App() {
     })
   }
 
+  useEffect(()=>{
+    loadAllChampions()
+  },[])
+
   return (
     <div className="App-header Gen-container">
       <nav>
         <h5>League of Legends <span className='kaushanF'>Summoner Searcher</span></h5>
         <div>
           <button className='href'>Home</button>
-          <button 
-            onClick={e=>{loadAllChampions(e)}} className='href'>Load</button>
         </div>
       </nav>
-      <section>
-
-      </section>
       <section className='container-search'>
         <div className='search-bar'>
           <form action='#' id='searchSummoner'>
@@ -60,30 +73,41 @@ function App() {
               e.preventDefault()
               searchSummoner(e)}}><i className="fa-solid fa-magnifying-glass"></i></button>
           </form>
-            
+  
         </div>
         
         <div className='responseData'>
           {JSON.stringify(playerData) != '{}' ? 
           <>
-            <p>We got you {playerData.name}!</p>
-            <p>Summoner level: {playerData.summonerLevel}</p>
-            <img width={150} src={"http://ddragon.leagueoflegends.com/cdn/11.21.1/img/profileicon/"+playerData.profileIconId+".png"} />
+            <div className='container-BI'>
+              <div className='borderIcon'></div>
+                <img width={160} 
+                  src={"http://ddragon.leagueoflegends.com/cdn/11.21.1/img/profileicon/"+playerData.profileIconId+".png"} 
+                  style={{borderRadius: '50%'}}
+                />
+            </div>
+            <p>We got you <span className='kaushanF'>{playerData.name}</span>!</p>
+            <p>Summoner level: <span>{playerData.summonerLevel}</span></p>
           </> 
           : 
-          <><p>Are you sure your'e there?</p></>}
+          <>
+            <p>Are you sure your'e there?</p>
+          </>}
         </div>
       </section>
-      <section className='allChampions'>
-        {allChampions.map((allChampions, index)=>(
+      <section className='allChampions' id='allChampions'>
+        {/*Object.entries(allChampions).map(([key, champion], index)=>(
           <div key={index}>
               <ChampionCard
-                img={'http://ddragon.leagueoflegends.com/cdn/13.13.1/img/champion/'+allChampions.img.full}
-                championName={allChampions.name}
-                title={allChampions.title}
+                img={'http://ddragon.leagueoflegends.com/cdn/13.13.1/img/champion/'+champion.img.full}
+                championName={champion.name}
+                title={champion.title}
               />
           </div>
-        ))}
+        ))*/
+          allChampions
+          
+        }
       </section>
     </div>
   );
